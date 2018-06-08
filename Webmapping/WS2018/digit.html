@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<!--	{}	[]	-->
+
 	<head>
 		<meta charset='utf-8'>
 		<title>Digit</title>
@@ -22,68 +22,43 @@
 	<body>
 		
 		<div id='mapDIV'></div>
-		
-		<!-- 8	button einfügen -->
+
 		<input type='button' value='Button GeoJSON erstellen' id='btnVisu'>
 		
 		</br>
-		
-		<!-- 9	button einfügen	+ id name nicht vergessen -->
+
 		<textarea cols='100' rows='5'id='exportFeld'>Ausgabe GeoJSON</textarea>
-		
-		<!-- weiter mit 10 siehe unten script -->
-		
 		
 		<script>
 		
-			// Karte erstellen
 			var meineKarte = L.map('mapDIV', {
 								//center: [52.52, 13.41],
 								center: {lat: 52.52, lng: 13.41},
 								zoom: 13
 							});
 							
-			// Basemap definieren
 			var hintergrundkarte = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 				attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			});
-			
-			// Basemap hinzufügen
+
 			hintergrundkarte.addTo(meineKarte);
-
-
-			// 0	klick handler
-			
-			// 4	array anlegen			
+		
 			var koord = [];
-			
-			// 1	fct definieren
+
 			meineKarte.on('click', function(e) {
 			
-				// 2	bekannte vorgabe			
+		
 				var lat = e.latlng.lat.toFixed(4);
 				var lon = e.latlng.lng.toFixed(4);
-					
-				// 3	marker setzen beim klick	
+
 				L.marker([lat, lon]).addTo(meineKarte);
-					//console.log(e.latlng);
-					//	check in console
-					
-				// 5	push
+
 				koord.push([lat, lon]);
+
+				polyCreate();	
 				
-				// 6.1
-				polyCreate();			// an dieser stelle schöner effekt (jedes dreieck)
-			
 			});
 			
-				
-			//6.0 neue funct	Variante 1
-		//		function polyCreate() {
-		//		var poly = L.polygon(koord);
-		//		poly.addTo(meineKarte);
-
-			//7	Variante 2	ohne effeke
 				var poly;
 			
 				function polyCreate() {
@@ -98,43 +73,22 @@
 			
 				poly.addTo(meineKarte);		
 				
-				
 				}
-				
-			//console	koord enter ergibt array
-			//			polyCreate	zeigt funktion
-			//			polyCreate()	erzeugt polygon
-			
-			// 10 neue fct export button
 				
 				function polyExport(){
 				
 					var poly_geojson = poly.toGeoJSON();
 				
-					//console.log('Export funktioniert');
 					console.log(poly_geojson);
 					
-					poly_geojson = JSON.stringify(poly_geojson);	//stringify = jede geschweifte klammer kann zum string werden
+					poly_geojson = JSON.stringify(poly_geojson);
 					
 					document.getElementById('exportFeld').innerHTML = poly_geojson;
 
 				}
 				
 				document.getElementById('btnVisu').onclick = polyExport;
-
-		// nachträglich in qgis drag to visualize
-		// oder auf geojson.io
 		
-		//http://weltkarte.pasch-net.de/2018/
-		
-		//turf.js
-		
-		//http://geosysnet.de/de/downloads.html
-		
-		//http://geosysnet.de/custom/downloads/Leaflet_Einfuehrung_DGfK_7_Juni_2018.pdf
-		//http://geosysnet.de/custom/downloads/Leaflet_Workshop_DGfK_8_Juni_2018.pdf
-				
-			
 		</script>
 		
 	</body>
