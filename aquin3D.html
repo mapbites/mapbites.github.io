@@ -6,7 +6,7 @@
       function initialize() {
         var options = {atmosphere: true, center: [0, 0], zoom: 0};
         var earth = new WE.map('earth_div', options);
-        WE.tileLayer('https://a.tiles.mapbox.com/v3/duncangraham.552f58b0/{z}/{x}/{y}.png', {
+        WE.tileLayer('https://api.mapbox.com/styles/v1/aquincum/cjmtcsyew2ycq2snpivys5dra/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYXF1aW5jdW0iLCJhIjoiY2lwd3EzdzlpMDA2aWh6bTIwdnU1dGxzNiJ9.pk023JZnUV2rFrdbsI1sew', {
           subdomains: '1234'
         }).addTo(earth);
       }
@@ -16,7 +16,7 @@
       #earth_div{top: 0; right: 0; bottom: 0; left: 0; 
                  background-color: #000; position: absolute !important;}
       </style>
-      <title>3D Mario duncangraham</title>
+      <title>3D aquin run DD</title>
     </head>
     <body onload="initialize()">
       <div id="earth_div"></div>
